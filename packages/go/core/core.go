@@ -9,6 +9,18 @@ import (
 	"github.com/teamkeel/sst-go"
 )
 
+type Contact struct {
+	Name     sql.NullString
+	Email    sql.NullString
+	Phone    sql.NullString
+	Place    sql.NullString
+	Twitter  sql.NullString
+	LinkedIn sql.NullString
+	BlueSky  sql.NullString
+	Notes    sql.NullString
+	Id       int
+}
+
 // GetDB returns the database connection
 func GetDB() (*sql.DB, error) {
 	url, err := sst.Secret(context.Background(), "TURSO_URL")

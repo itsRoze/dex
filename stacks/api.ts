@@ -12,7 +12,8 @@ export function API({ stack }: StackContext) {
     },
     routes: {
       "GET /": "packages/go/example/example.go",
-      "GET /list": "packages/go/list/list.go",
+      "GET /contacts": "packages/go/list/list.go",
+      "GET /contacts/{id}": "packages/go/get/get.go",
     },
   });
 

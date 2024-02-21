@@ -1,10 +1,10 @@
 package main
 
 import (
+	"database/sql"
 	"dex/backend/core"
 	"encoding/json"
 	"fmt"
-	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -12,6 +12,7 @@ import (
 )
 
 func Handler(request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResponse, error) {
+	// Connect to Database
 	db, err := core.GetDB()
 	if err != nil {
 		return events.APIGatewayProxyResponse{
@@ -21,32 +22,27 @@ func Handler(request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResp
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM contact")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to execute query: %v\n", err)
+	// Query DB
+	id := request.PathParameters["id"]
+	if id == "" {
 		return events.APIGatewayProxyResponse{
-			Body:       fmt.Sprintf(`{"error":true,"message":"%v"}`, err.Error()),
+			Body:       `{"error":true,"message":"Missing ID"}`,
 			StatusCode: 404,
 		}, nil
 	}
-	defer rows.Close()
 
-	contacts := []core.Contact{}
-	for rows.Next() {
-		var c core.Contact
-		err := rows.Scan(&c.Id, &c.Name, &c.Email, &c.Phone, &c.Place, &c.Twitter, &c.LinkedIn, &c.BlueSky, &c.Notes)
-		if err != nil {
-			fmt.Println("Error scanning row:", err)
+	var c core.Contact
+	row := db.QueryRow("SELECT * FROM contact WHERE id = ?", id)
+	if err := row.Scan(&c.Id, &c.Name, &c.Email, &c.Phone, &c.Place, &c.Twitter, &c.LinkedIn, &c.BlueSky, &c.Notes); err != nil {
+		if err == sql.ErrNoRows {
 			return events.APIGatewayProxyResponse{
-				Body:       fmt.Sprintf(`{"error":true,"message":"%v"}`, err.Error()),
-				StatusCode: 500,
+				Body:       `{"error":true,"message":"Contact not found"}`,
+				StatusCode: 404,
 			}, nil
 		}
-
-		contacts = append(contacts, c)
 	}
 
-	data, _ := json.Marshal(contacts)
+	data, _ := json.Marshal(c)
 
 	return events.APIGatewayProxyResponse{
 		Body:       string(data),
