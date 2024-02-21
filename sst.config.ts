@@ -1,6 +1,7 @@
 import { SSTConfig } from "sst";
 import { API } from "./stacks/api";
 import { Web } from "./stacks/web";
+import { Secrets } from "./stacks/secrets";
 
 export default {
   config(_input) {
@@ -14,6 +15,6 @@ export default {
       runtime: "go",
     });
 
-    app.stack(API).stack(Web);
+    app.stack(Secrets).stack(API).stack(Web);
   },
 } satisfies SSTConfig;

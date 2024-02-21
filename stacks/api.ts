@@ -1,8 +1,15 @@
-import { StackContext } from "sst/constructs/FunctionalStack";
-import { Api } from "sst/constructs";
+import { Api, StackContext, use } from "sst/constructs";
+import { Secrets } from "./secrets";
 
 export function API({ stack }: StackContext) {
+  const secrets = use(Secrets);
+
   const api = new Api(stack, "api", {
+    defaults: {
+      function: {
+        bind: [...Object.values(secrets.database)],
+      },
+    },
     routes: {
       "GET /": "packages/go/get.go",
     },

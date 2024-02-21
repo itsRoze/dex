@@ -1,0 +1,22 @@
+{
+  "name": "@dex/db",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "sst bind vitest",
+    "typecheck": "tsc -noEmit",
+    "clean": "rm -rf .turbo node_modules",
+    "db:push": "sst bind drizzle-kit push:sqlite",
+    "dev": "sst bind drizzle-kit studio"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.7",
+    "drizzle-kit": "^0.20.14",
+    "sst": "^2.39.13",
+    "vitest": "^1.2.2"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.5.1",
+    "drizzle-orm": "^0.29.3"
+  }
+}
