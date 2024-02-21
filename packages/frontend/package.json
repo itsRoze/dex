@@ -6,7 +6,9 @@
     "start": "vite",
     "dev": "sst bind vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo node_modules"
   },
   "license": "MIT",
   "devDependencies": {

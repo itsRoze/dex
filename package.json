@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "sst dev",
+    "dev": "turbo dev --parallel",
     "build": "sst build",
     "deploy": "sst deploy",
     "remove": "sst remove",
     "console": "sst console",
-    "typecheck": "tsc --noEmit"
+    "typecheck": " turbo typecheck",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean"
   },
   "devDependencies": {
     "sst": "^2.40.3",
