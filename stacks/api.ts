@@ -16,6 +16,7 @@ export function API({ stack }: StackContext) {
       "GET /contacts/{id}": "packages/go/get/get.go",
       "POST /contacts": "packages/go/create/create.go",
       "PUT /contacts/{id}": "packages/go/update/update.go",
+      "DELETE /contacts/{id}": "packages/go/delete/delete.go",
     },
   });
 
