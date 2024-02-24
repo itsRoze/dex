@@ -10,15 +10,15 @@ import (
 )
 
 type Contact struct {
-	Name     sql.NullString
-	Email    sql.NullString
-	Phone    sql.NullString
-	Place    sql.NullString
-	Twitter  sql.NullString
-	LinkedIn sql.NullString
-	BlueSky  sql.NullString
-	Notes    sql.NullString
-	Id       int
+	Name     *string `json:"name"`
+	Email    *string `json:"email"`
+	Phone    *string `json:"phone"`
+	Place    *string `json:"place"`
+	Twitter  *string `json:"twitter"`
+	LinkedIn *string `json:"linkedin"`
+	BlueSky  *string `json:"bluesky"`
+	Notes    *string `json:"notes"`
+	Id       int     `json:"id"`
 }
 
 // GetDB returns the database connection

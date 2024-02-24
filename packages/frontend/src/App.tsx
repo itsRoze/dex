@@ -1,28 +1,28 @@
-import { createResource, type Component } from "solid-js";
+import { createResource, type Component, Show, For } from "solid-js";
 import { IconSearch } from "./icons/search";
-
-const fetchData = async () => {
-  console.log(import.meta.env.VITE_API_URL);
-  const result = await fetch(import.meta.env.VITE_API_URL).then((res) =>
-    res.text(),
-  );
-  return result;
-};
+import { Api } from "./lib/api";
+import { ContactCard } from "./components/ContactCard";
 
 const App: Component = () => {
-  const [data] = createResource(fetchData);
+  const [contacts] = createResource(Api.getAll);
   return (
-    <main class="w-full h-full lg:max-w-4xl flex flex-col items-center">
-      <header class="flex gap-12 items-center justify-center w-full">
-        <img src="/logo.svg" class="w-32 h-32" />
-        <div class="flex items-center justify-stretch border-black border-2 px-2 w-1/2 rounded-md">
+    <main class="w-full h-full lg:max-w-4xl flex flex-col md:pt-0 md:px-0 pt-3 px-1 gap-6">
+      <header class="flex md:gap-12 gap-2 items-center md:justify-center w-full">
+        <img src="/logo.svg" class="md:w-32 md:h-auto w-16 h-auto" />
+        <div class="flex items-center justify-stretch border-black border-2 md:px-2 px-1 md:w-1/2 grow md:flex-grow-0 rounded-md">
           <IconSearch />
           <input
             type="text"
-            class="grow h-fit p-3 bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            class="grow h-fit md:p-3 p-1 bg-transparent border-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder-gray-800"
+            placeholder={`Search ${contacts()?.length || 0} contacts`}
           />
         </div>
       </header>
+      <ul class="px-4 w-full flex flex-col items-center gap-4">
+        <For each={contacts()} fallback={<div>Loading...</div>}>
+          {(contact) => <ContactCard contact={contact} />}
+        </For>
+      </ul>
     </main>
   );
 };
