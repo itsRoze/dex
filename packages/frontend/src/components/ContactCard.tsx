@@ -38,9 +38,16 @@ export const ContactCard: Component<IContactCard> = (props) => {
           {/* Phone */}
           <div class="flex items-center gap-2 pt-3">
             <IconPhone />
-            <span class="text-sm font-medium">
-              {formatPhoneNumber(props.contact.phone) || "N/A"}
-            </span>
+            {props.contact.phone ? (
+              <a
+                href={`tel:${props.contact.phone}`}
+                class="text-sm font-medium"
+              >
+                {formatPhoneNumber(props.contact.phone) || "N/A"}
+              </a>
+            ) : (
+              <span class="text-sm font-medium">N/A</span>
+            )}
           </div>
           {/* Place */}
           <div class="flex items-center gap-2 pt-3">
@@ -52,32 +59,63 @@ export const ContactCard: Component<IContactCard> = (props) => {
           {/* Twitter */}
           <div class="flex items-center gap-2 pt-3">
             <IconTwitter />
-            <span class="text-sm font-medium">
-              {props.contact.twitter || "N/A"}
-            </span>
+            {props.contact.twitter ? (
+              <a
+                href={`https://twitter.com/${props.contact.twitter}`}
+                target="_blank"
+                class="text-sm font-medium"
+              >
+                {props.contact.twitter}
+              </a>
+            ) : (
+              <span class="text-sm font-medium">N/A</span>
+            )}
           </div>
           {/* Bluesky */}
           <div class="flex items-center gap-2 pt-3">
             <IconBluesky />
-            <span class="text-sm font-medium">
-              {props.contact.bluesky || "N/A"}
-            </span>
+            {props.contact.bluesky ? (
+              <a
+                href={`https://bsky.app/profile/${props.contact.bluesky}`}
+                target="_blank"
+                class="text-sm font-medium"
+              >
+                {props.contact.bluesky}
+              </a>
+            ) : (
+              <span class="text-sm font-medium">N/A</span>
+            )}
           </div>
           {/* LinkedIn */}
           <div class="flex items-center gap-2 pt-3">
             <IconLinkedin />
-            <span class="text-sm font-medium">
-              {props.contact.linkedin || "N/A"}
-            </span>
+            {props.contact.linkedin ? (
+              <a
+                href={`https://www.linkedin.com/in/${props.contact.linkedin}`}
+                target="_blank"
+                class="text-sm font-medium"
+              >
+                {props.contact.linkedin}
+              </a>
+            ) : (
+              <span class="text-sm font-medium">N/A</span>
+            )}
           </div>
         </div>
         <div>
           {/* Email */}
           <div class="flex items-center gap-2 pt-3">
             <IconEmail />
-            <span class="text-sm font-medium">
-              {props.contact.email || "N/A"}
-            </span>
+            {props.contact.email ? (
+              <a
+                href={`mailto:${props.contact.email}`}
+                class="text-sm font-medium"
+              >
+                {props.contact.email}
+              </a>
+            ) : (
+              <span class="text-sm font-medium">N/A</span>
+            )}
           </div>
           {/* Notes */}
           <div class="flex items-center gap-2 pt-3">
