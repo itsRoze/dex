@@ -1,5 +1,5 @@
 import { createResource, type Component, Show, For } from "solid-js";
-import { IconSearch } from "./icons/search";
+import { IconSearch } from "./components/icons";
 import { Api } from "./lib/api";
 import { ContactCard } from "./components/ContactCard";
 

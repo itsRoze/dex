@@ -1,35 +1,64 @@
-import { IconBluesky } from "@/icons/bluesky";
-import { IconEmail } from "@/icons/email";
-import { IconLinkedin } from "@/icons/linkedin";
-import { IconMap } from "@/icons/map";
-import { IconNote } from "@/icons/note";
-import { IconPen } from "@/icons/pen";
-import { IconPhone } from "@/icons/phone";
-import { IconTrash } from "@/icons/trash";
-import { IconTwitter } from "@/icons/twitter";
-import { IconUser } from "@/icons/user";
 import { ContactInfo } from "@dex/db/contact";
-import { Component } from "solid-js";
+import { Component, createResource, createSignal } from "solid-js";
+import {
+  IconUser,
+  IconPen,
+  IconTrash,
+  IconPhone,
+  IconMap,
+  IconTwitter,
+  IconBluesky,
+  IconLinkedin,
+  IconEmail,
+  IconNote,
+} from "./icons";
+import { Api } from "@/lib/api";
+import { DeleteModal } from "./delete-modal";
 
 interface IContactCard {
   contact: ContactInfo;
 }
 
 export const ContactCard: Component<IContactCard> = (props) => {
+  const [modifyHovering, setModifyHovering] = createSignal(false);
+  const [deleteModal, setDeleteModal] = createSignal(false);
+
+  const confirmDelete = () => {
+    console.log("deleted");
+  };
+
   return (
-    <div class="rounded-md border-gray-700 border-2 p-2 max-w-xl w-full">
+    <div
+      class={`rounded-md border-gray-700 border-2 p-2 max-w-xl w-full ${modifyHovering() ? "bg-white/20 shadow-lg" : ""}`}
+    >
       <div class="flex items-center justify-between">
         <div class="flex gap-2 pb-1">
           <IconUser />
           <p class="font-semibold">{props.contact.name}</p>
         </div>
-        <div class="flex gap-1">
-          <button>
-            <IconPen />
+        <div
+          onMouseEnter={() => setModifyHovering(true)}
+          onMouseLeave={() => setModifyHovering(false)}
+          class="flex gap-1"
+        >
+          {/* Edit */}
+          <button class="group hover:rotate-12 ">
+            <IconPen class="group-hover:rotate-12" />
           </button>
-          <button>
-            <IconTrash />
+          {/* Delete */}
+          <button
+            onclick={() => setDeleteModal(true)}
+            class="group hover:rotate-12 "
+          >
+            <IconTrash class="group-hover:rotate-12" />
           </button>
+          {deleteModal() && (
+            <DeleteModal
+              isOpen={deleteModal()}
+              onClose={() => setDeleteModal(false)}
+              onConfirm={confirmDelete}
+            />
+          )}
         </div>
       </div>
       <hr class="w-full border-gray-800/40 " />
@@ -41,7 +70,7 @@ export const ContactCard: Component<IContactCard> = (props) => {
             {props.contact.phone ? (
               <a
                 href={`tel:${props.contact.phone}`}
-                class="text-sm font-medium"
+                class="text-sm font-medium hover:underline"
               >
                 {formatPhoneNumber(props.contact.phone) || "N/A"}
               </a>
@@ -63,7 +92,7 @@ export const ContactCard: Component<IContactCard> = (props) => {
               <a
                 href={`https://twitter.com/${props.contact.twitter}`}
                 target="_blank"
-                class="text-sm font-medium"
+                class="text-sm font-medium hover:underline"
               >
                 {props.contact.twitter}
               </a>
@@ -78,7 +107,7 @@ export const ContactCard: Component<IContactCard> = (props) => {
               <a
                 href={`https://bsky.app/profile/${props.contact.bluesky}`}
                 target="_blank"
-                class="text-sm font-medium"
+                class="text-sm font-medium hover:underline"
               >
                 {props.contact.bluesky}
               </a>
@@ -93,7 +122,7 @@ export const ContactCard: Component<IContactCard> = (props) => {
               <a
                 href={`https://www.linkedin.com/in/${props.contact.linkedin}`}
                 target="_blank"
-                class="text-sm font-medium"
+                class="text-sm font-medium hover:underline"
               >
                 {props.contact.linkedin}
               </a>
@@ -109,7 +138,7 @@ export const ContactCard: Component<IContactCard> = (props) => {
             {props.contact.email ? (
               <a
                 href={`mailto:${props.contact.email}`}
-                class="text-sm font-medium"
+                class="text-sm font-medium hover:underline"
               >
                 {props.contact.email}
               </a>

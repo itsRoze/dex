@@ -7,3 +7,11 @@ export const getAll = async () => {
   );
   return result as ContactInfo[];
 };
+
+export const deleteContact = async (id: number) => {
+  const result = await fetch(import.meta.env.VITE_API_URL + "/contacts/" + id, {
+    method: "DELETE",
+  }).then((res) => res.json());
+
+  return result;
+};

@@ -63,6 +63,9 @@ importers:
 
   packages/frontend:
     dependencies:
+      '@thisbeyond/solid-dnd':
+        specifier: ^0.7.5
+        version: 0.7.5(solid-js@1.8.15)
       solid-js:
         specifier: ^1.8.11
         version: 1.8.15
@@ -3464,6 +3467,15 @@ packages:
     dependencies:
       solid-js: 1.8.15
     dev: true
+
+  /@thisbeyond/solid-dnd@0.7.5(solid-js@1.8.15):
+    resolution: {integrity: sha512-DfI5ff+yYGpK9M21LhYwIPlbP2msKxN2ARwuu6GF8tT1GgNVDTI8VCQvH4TJFoVApP9d44izmAcTh/iTCH2UUw==}
+    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+    peerDependencies:
+      solid-js: ^1.5
+    dependencies:
+      solid-js: 1.8.15
+    dev: false
 
   /@trpc/server@9.16.0:
     resolution: {integrity: sha512-IENsJs41ZR4oeFUJhsNNTSgEOtuRN0m9u7ec4u3eG/qOc7bIoo1nDoYtx4bl6OJJSQYEytG9tlcVz9G8OAaHbg==}
