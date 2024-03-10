@@ -233,3 +233,42 @@ export const IconUser: Component<Icon> = (props) => {
     </svg>
   );
 };
+
+export const IconCheck: Component<Icon> = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.width || "24"}
+      height={props.height || "24"}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={props.color || "currentColor"}
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={`lucide lucide-check ${props.class || ""}`}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+};
+
+export const IconUndo: Component<Icon> = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.width || "24"}
+      height={props.height || "24"}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={props.color || "currentColor"}
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={`lucide lucide-rotate-ccw ${props.class || ""}`}
+    >
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+    </svg>
+  );
+};

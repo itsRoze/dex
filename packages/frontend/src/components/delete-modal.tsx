@@ -15,17 +15,21 @@ export const DeleteModal: Component<Props> = (props) => {
 
   return (
     <div
-      class={`fixed inset-0 flex items-center justify-center z-50 bg-gray-500/50 transition-opacity duration-300 ${
+      class={`absolute inset-0 flex items-center justify-center z-50 bg-gray-500/80 transition-colors duration-300 ${
         props.isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <div>
+      <div class="border border-gray-900 rounded-md p-2 bg-gray-300 w-1/3">
         <div class="text-center mb-3">
           <p class="text-lg font-medium">Are you sure?</p>
         </div>
-        <div class="flex justify-between">
-          <button onclick={props.onClose}>No</button>
-          <button onclick={props.onConfirm}>Yes</button>
+        <div class="flex gap-2 justify-center">
+          <button class="hover:underline" onclick={props.onClose}>
+            No
+          </button>
+          <button class="hover:underline" onclick={props.onConfirm}>
+            Yes
+          </button>
         </div>
       </div>
     </div>
