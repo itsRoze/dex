@@ -4,6 +4,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  disabled: boolean;
 }
 export const DeleteModal: Component<Props> = (props) => {
   const [isMounted, setIsMounted] = createSignal(false);
@@ -24,12 +25,26 @@ export const DeleteModal: Component<Props> = (props) => {
           <p class="text-lg font-medium">Are you sure?</p>
         </div>
         <div class="flex gap-2 justify-center">
-          <button class="hover:underline" onclick={props.onClose}>
-            No
-          </button>
-          <button class="hover:underline" onclick={props.onConfirm}>
-            Yes
-          </button>
+          {props.disabled ? (
+            <div>...</div>
+          ) : (
+            <>
+              <button
+                disabled={props.disabled}
+                class="hover:underline"
+                onclick={props.onClose}
+              >
+                No
+              </button>
+              <button
+                disabled={props.disabled}
+                class="hover:underline"
+                onclick={props.onConfirm}
+              >
+                Yes
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -16,9 +16,12 @@ import {
   IconUndo,
   IconUser,
 } from "./icons";
+import { DeleteModal } from "./delete-modal";
+import { Api } from "@/lib/api";
 
 interface IContactCard {
   contact: ContactInfo;
+  refetch: () => void;
 }
 
 type TestContact = {
@@ -36,6 +39,16 @@ export const ContactCard: Component<IContactCard> = (props) => {
   const [contactForm, { Form, Field }] = createForm<TestContact>();
   const [modifyHovering, setModifyHovering] = createSignal(false);
   const [editable, setEditable] = createSignal(false);
+  const [deleteModal, setDeleteModal] = createSignal(false);
+  const [isUpdating, setIsUpdating] = createSignal(false);
+
+  const confirmDelete = async () => {
+    await Api.deleteContact(props.contact.id);
+    setDeleteModal(false);
+    setIsUpdating(true);
+    props.refetch();
+    setIsUpdating(false);
+  };
 
   const handleSubmit: SubmitHandler<TestContact> = (values, event) => {
     console.log(values);
@@ -80,6 +93,15 @@ export const ContactCard: Component<IContactCard> = (props) => {
           <EditButtons
             setModifyHovering={setModifyHovering}
             setEditMode={setEditable}
+            setDeleteModal={setDeleteModal}
+          />
+        )}
+        {deleteModal() && (
+          <DeleteModal
+            isOpen={deleteModal()}
+            onClose={() => setDeleteModal(false)}
+            onConfirm={confirmDelete}
+            disabled={isUpdating()}
           />
         )}
       </div>
@@ -287,6 +309,7 @@ const TextInput: Component<TextInputProps> = (props) => {
 interface IEditButtons {
   setModifyHovering: (hovering: boolean) => void;
   setEditMode: (edit: boolean) => void;
+  setDeleteModal: (open: boolean) => void;
 }
 
 const EditButtons: Component<IEditButtons> = (props) => {
@@ -304,7 +327,11 @@ const EditButtons: Component<IEditButtons> = (props) => {
         <IconPen class="group-hover:rotate-12" />
       </button>
       {/* Delete */}
-      <button type="button" class="group hover:rotate-12 ">
+      <button
+        type="button"
+        onclick={() => props.setDeleteModal(true)}
+        class="group hover:rotate-12 "
+      >
         <IconTrash class="group-hover:rotate-12" />
       </button>
     </div>

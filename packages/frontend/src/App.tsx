@@ -2,9 +2,10 @@ import { createResource, type Component, For } from "solid-js";
 import { IconSearch } from "./components/icons";
 import { Api } from "./lib/api";
 import { ContactCard } from "./components/ContactCardNew";
+import { ContactInfo } from "@dex/db/contact";
 
 const App: Component = () => {
-  const [contacts] = createResource(Api.getAll);
+  const [contacts, { refetch }] = createResource<ContactInfo[]>(Api.getAll);
   return (
     <main class="w-full h-full lg:max-w-4xl flex flex-col md:pt-0 md:px-0 pt-3 px-1 gap-6">
       <header class="flex md:gap-12 gap-2 items-center md:justify-center w-full">
@@ -20,7 +21,7 @@ const App: Component = () => {
       </header>
       <ul class="px-1 md:px-4 w-full flex flex-col items-center gap-4">
         <For each={contacts()} fallback={<div>No contacts found</div>}>
-          {(contact) => <ContactCard contact={contact} />}
+          {(contact) => <ContactCard contact={contact} refetch={refetch} />}
         </For>
       </ul>
     </main>
