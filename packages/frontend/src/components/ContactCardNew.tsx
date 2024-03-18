@@ -50,9 +50,15 @@ export const ContactCard: Component<IContactCard> = (props) => {
     setIsUpdating(false);
   };
 
-  const handleSubmit: SubmitHandler<TestContact> = (values, event) => {
-    console.log(values);
-    console.log(event);
+  const handleSubmit: SubmitHandler<TestContact> = async (values, _event) => {
+    setIsUpdating(true);
+    await Api.editContact({
+      id: props.contact.id,
+      ...values,
+    });
+    props.refetch();
+    setIsUpdating(false);
+    setEditable(false);
   };
 
   // set intital values

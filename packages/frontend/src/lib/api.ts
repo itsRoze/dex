@@ -15,3 +15,19 @@ export const deleteContact = async (id: number) => {
 
   return result;
 };
+
+export const editContact = async (data: ContactInfo) => {
+  const { id, ...rest } = data;
+
+  const result = await fetch(import.meta.env.VITE_API_URL + "/contacts/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rest),
+  }).then((res) => res.json());
+
+  console.log(result);
+
+  return result;
+};

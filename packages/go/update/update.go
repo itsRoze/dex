@@ -34,6 +34,7 @@ func Handler(request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResp
 	var body map[string]string
 	_ = json.Unmarshal([]byte(request.Body), &body)
 
+
 	// Construct update query
 	query := "UPDATE contact SET "
 	var params []interface{}
@@ -48,6 +49,7 @@ func Handler(request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResp
 	query += " WHERE id = ?"
 	params = append(params, id)
 
+
 	// Execute the update query
 	stmt, err := db.Prepare(query)
 	if err != nil {
@@ -60,11 +62,15 @@ func Handler(request events.APIGatewayV2HTTPRequest) (events.APIGatewayProxyResp
 
 	_, err = stmt.Exec(params...)
 	if err != nil {
+    fmt.Println("In err")
+    fmt.Println(err)
 		return events.APIGatewayProxyResponse{
 			Body:       fmt.Sprintf(`{"error":true,"message":"%v"}`, err.Error()),
 			StatusCode: 500,
 		}, nil
 	}
+
+  fmt.Println("Updated contact with ID:", id)
 
 	return events.APIGatewayProxyResponse{
 		Body:       `{"success":true}`,
