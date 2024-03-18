@@ -2,7 +2,7 @@ import { text, integer, sqliteTable } from "drizzle-orm/sqlite-core";
 
 export const contact = sqliteTable("contact", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  name: text("name"),
+  name: text("name").notNull(),
   email: text("email"),
   phone: text("phone"),
   place: text("place"),

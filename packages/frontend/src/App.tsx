@@ -1,7 +1,7 @@
-import { createResource, type Component, Show, For } from "solid-js";
+import { createResource, type Component, For } from "solid-js";
 import { IconSearch } from "./components/icons";
 import { Api } from "./lib/api";
-import { ContactCard } from "./components/ContactCard";
+import { ContactCard } from "./components/ContactCardNew";
 
 const App: Component = () => {
   const [contacts] = createResource(Api.getAll);
@@ -18,8 +18,8 @@ const App: Component = () => {
           />
         </div>
       </header>
-      <ul class="px-4 w-full flex flex-col items-center gap-4">
-        <For each={contacts()} fallback={<div>Loading...</div>}>
+      <ul class="px-1 md:px-4 w-full flex flex-col items-center gap-4">
+        <For each={contacts()} fallback={<div>No contacts found</div>}>
           {(contact) => <ContactCard contact={contact} />}
         </For>
       </ul>

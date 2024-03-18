@@ -1,11 +1,11 @@
 import { Component } from "solid-js";
 
-interface Icon {
+export type Icon = {
   width?: number;
   height?: number;
   color?: string;
   class?: string;
-}
+};
 
 export const IconBluesky: Component<Icon> = (props) => {
   return (

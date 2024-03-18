@@ -22,6 +22,7 @@ export const EditableField: Component<IEditableField> = (props) => {
       type={props.type || "text"}
       value={props.value || ""}
       placeholder={props.placeholder}
+      autocomplete="off"
       class="bg-transparent border-2 border-gray-700 rounded-md  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0"
     />
   );

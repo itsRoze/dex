@@ -21,6 +21,7 @@
     "vite-plugin-solid": "^2.8.2"
   },
   "dependencies": {
+    "@modular-forms/solid": "^0.20.0",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "add": "^2.0.6",
     "remove": "^0.1.5",

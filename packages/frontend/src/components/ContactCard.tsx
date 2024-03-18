@@ -11,17 +11,7 @@ import {
   Place,
   Twitter,
 } from "./fields";
-import {
-  IconBluesky,
-  IconCheck,
-  IconEmail,
-  IconLinkedin,
-  IconNote,
-  IconPen,
-  IconTrash,
-  IconTwitter,
-  IconUndo,
-} from "./icons";
+import { IconCheck, IconPen, IconTrash, IconUndo } from "./icons";
 
 interface IContactCard {
   contact: ContactInfo;

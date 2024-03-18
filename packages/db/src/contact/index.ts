@@ -5,13 +5,13 @@ import { type z } from "zod";
 export const Info = createSelectSchema(contact, {
   id: (schema) => schema.id.min(1),
   name: (schema) => schema.name.min(1),
-  email: (schema) => schema.email.optional(),
-  phone: (schema) => schema.phone.optional(),
-  place: (schema) => schema.place.optional(),
-  twitter: (schema) => schema.twitter.optional(),
-  linkedin: (schema) => schema.linkedin.optional(),
-  bluesky: (schema) => schema.bluesky.optional(),
-  notes: (schema) => schema.notes.optional(),
+  email: (schema) => schema.email,
+  phone: (schema) => schema.phone,
+  place: (schema) => schema.place,
+  twitter: (schema) => schema.twitter,
+  linkedin: (schema) => schema.linkedin,
+  bluesky: (schema) => schema.bluesky,
+  notes: (schema) => schema.notes,
 });
 
 export type ContactInfo = z.infer<typeof Info>;
