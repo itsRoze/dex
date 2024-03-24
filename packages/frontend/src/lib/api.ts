@@ -43,3 +43,19 @@ export const createContact = async (data: Omit<ContactInfo, "id">) => {
 
   return result;
 };
+
+export const checkPassword = async (password: string) => {
+  const result = await fetch(import.meta.env.VITE_API_URL + "/password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password }),
+  }).then((res) => res.json());
+
+  if (result.success) {
+    return true;
+  }
+
+  return false;
+};

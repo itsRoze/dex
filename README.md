@@ -29,6 +29,12 @@ Push schema changes to the database
 pnpm db:push
 ```
 
+## Add an App Secret
+
+```bash
+pnpm sst secrets set PASSWORD <password> --fallback
+```
+
 ## Running SST
 
 ```bash

@@ -1,11 +1,77 @@
-import { createResource, type Component, For, createSignal } from "solid-js";
+import {
+  createResource,
+  type Component,
+  For,
+  createSignal,
+  onMount,
+  createEffect,
+} from "solid-js";
 import { IconPlus, IconSearch } from "./components/icons";
 import { Api } from "./lib/api";
 import { ContactCard } from "./components/ContactCard";
 import { ContactInfo } from "@dex/db/contact";
 import { NewContact } from "./components/NewContact";
+import { makePersisted } from "@solid-primitives/storage";
+
+const checkAuth = async (passoword: string | undefined) => {
+  if (!passoword) return false;
+
+  const result = await Api.checkPassword(passoword);
+  return result;
+};
 
 const App: Component = () => {
+  const [local, setLocal] = makePersisted(createSignal<string | undefined>(), {
+    name: "dex-pass",
+  });
+
+  const [passInput, setPassInput] = createSignal<string | undefined>("");
+  const [isAuth, setIsAuth] = createSignal(false);
+
+  const handlePassSubmit = async (e: Event) => {
+    e.preventDefault();
+    if (!passInput()) return;
+
+    const isAuthed = await checkAuth(passInput());
+    if (isAuthed) {
+      setLocal(passInput());
+      setIsAuth(true);
+    }
+  };
+
+  onMount(async () => {
+    if (local()) {
+      const isAuthed = await checkAuth(local());
+      setIsAuth(isAuthed);
+    }
+  });
+
+  createEffect(() => {
+    console.log("isAuth", isAuth());
+  });
+
+  return (
+    <>
+      {isAuth() ? (
+        <DexApp />
+      ) : (
+        <>
+          <h1>Enter password</h1>
+          <form onsubmit={handlePassSubmit} class="flex flex-col gap-1">
+            <input
+              autofocus
+              type="password"
+              oninput={(e) => setPassInput(e.target.value)}
+            />
+            <button>Submit</button>
+          </form>
+        </>
+      )}
+    </>
+  );
+};
+
+const DexApp: Component = () => {
   const [contacts, { refetch }] = createResource<ContactInfo[]>(Api.getAll);
   const [newContact, setNewContact] = createSignal(false);
 

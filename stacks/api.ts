@@ -7,7 +7,7 @@ export function API({ stack }: StackContext) {
   const api = new Api(stack, "api", {
     defaults: {
       function: {
-        bind: [...Object.values(secrets.database)],
+        bind: [secrets.appPass.APP_PASS, ...Object.values(secrets.database)],
       },
     },
     routes: {
@@ -17,6 +17,7 @@ export function API({ stack }: StackContext) {
       "POST /contacts": "packages/go/create/create.go",
       "PUT /contacts/{id}": "packages/go/update/update.go",
       "DELETE /contacts/{id}": "packages/go/delete/delete.go",
+      "POST /password": "packages/go/password/password.go",
     },
   });
 
