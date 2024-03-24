@@ -1,15 +1,17 @@
 # Dex
 
+Dex (like rolodex) is my custom-built personal contacts manager. I found myself meeting interesting people at various network events and wanted to keep in touch. I'm not much of a LinkedIn person and I have a huge number of contacts on my phone, so I felt a specialized solution was needed.
+
+![Dex on desktop](screenshot.png)
+
+The frontend is built with SolidJS, the backend in Go and AWS (via SST), and the database is Turso.
+
+If you'd like to fork Dex, go for it but there's a bit of setup and this assumes you have an AWS account.
+
 ## Installation
 
 ```bash
 pnpm i
-```
-
-## Running SST
-
-```bash
-pnpm sst dev
 ```
 
 ## Setup Database
@@ -25,6 +27,12 @@ Push schema changes to the database
 
 ```bash
 pnpm db:push
+```
+
+## Running SST
+
+```bash
+pnpm sst dev
 ```
 
 ## Run app
