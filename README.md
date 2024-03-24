@@ -40,3 +40,7 @@ pnpm sst dev
 ```bash
 pnpm dev
 ```
+
+## Remaining
+
+[ ] Complete search functionality
