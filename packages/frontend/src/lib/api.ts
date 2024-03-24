@@ -31,3 +31,15 @@ export const editContact = async (data: ContactInfo) => {
 
   return result;
 };
+
+export const createContact = async (data: Omit<ContactInfo, "id">) => {
+  const result = await fetch(import.meta.env.VITE_API_URL + "/contacts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return result;
+};

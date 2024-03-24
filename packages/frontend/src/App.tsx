@@ -1,11 +1,14 @@
-import { createResource, type Component, For } from "solid-js";
-import { IconSearch } from "./components/icons";
+import { createResource, type Component, For, createSignal } from "solid-js";
+import { IconPlus, IconSearch } from "./components/icons";
 import { Api } from "./lib/api";
-import { ContactCard } from "./components/ContactCardNew";
+import { ContactCard } from "./components/ContactCard";
 import { ContactInfo } from "@dex/db/contact";
+import { NewContact } from "./components/NewContact";
 
 const App: Component = () => {
   const [contacts, { refetch }] = createResource<ContactInfo[]>(Api.getAll);
+  const [newContact, setNewContact] = createSignal(false);
+
   return (
     <main class="w-full h-full lg:max-w-4xl flex flex-col md:pt-0 md:px-0 pt-3 px-1 gap-6">
       <header class="flex md:gap-12 gap-2 items-center md:justify-center w-full">
@@ -18,8 +21,18 @@ const App: Component = () => {
             placeholder={`Search ${contacts()?.length || 0} contacts`}
           />
         </div>
+        <button class="hover:rotate-12" onclick={() => setNewContact(true)}>
+          <IconPlus color="#1f2937" width={32} height={32} />
+        </button>
       </header>
       <ul class="px-1 md:px-4 w-full flex flex-col items-center gap-4">
+        {newContact() && (
+          <NewContact
+            show={newContact()}
+            setShow={setNewContact}
+            refetch={refetch}
+          />
+        )}
         <For each={contacts()} fallback={<div>No contacts found</div>}>
           {(contact) => <ContactCard contact={contact} refetch={refetch} />}
         </For>
