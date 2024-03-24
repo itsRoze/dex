@@ -43,4 +43,4 @@ pnpm dev
 
 ## Remaining
 
-[ ] Complete search functionality
+[] Complete search functionality
